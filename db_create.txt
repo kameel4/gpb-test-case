@@ -1,0 +1,29 @@
+-- eximlogs.log определение
+
+CREATE TABLE `log` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `int_id` varchar(16) DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `flag` varchar(2) DEFAULT NULL,
+  `address` varchar(320) DEFAULT NULL,
+  `domain` varchar(255) DEFAULT NULL,
+  `host` varchar(255) DEFAULT NULL,
+  `str` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `log_int_id_idx` (`int_id`),
+  KEY `log_domain_idx` (`domain`)
+) ENGINE=InnoDB AUTO_INCREMENT=9900 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- eximlogs.message определение
+
+CREATE TABLE `message` (
+  `id` varchar(255) NOT NULL,
+  `int_id` varchar(16) NOT NULL,
+  `created` datetime NOT NULL,
+  `envelope_from` varchar(320) DEFAULT NULL,
+  `str` text NOT NULL,
+  `status` enum('queued','delivered','partial','failed') NOT NULL DEFAULT 'queued',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `message_int_id_uk` (`int_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

@@ -1,0 +1,34 @@
+<form method="get">
+    <input type="text" name="rcpt" value="[% rcpt | html %]" placeholder="email@example.com">
+    <button type="submit">Search</button>
+</form>
+
+[% IF error %]  
+    <p>[% error | html %]</p>
+[% END %]
+
+[% IF rcpt%]
+    [% IF messages.size %]
+        <table border="1" cellspacing="0" cellpadding="4">
+        <tr>
+            <th align="left">created</th>
+            <th align="left">internal_id</th>
+            <th align="left">flag</th>
+            <th align="left">str</th>
+            <th align="left">status</th>
+        </tr>
+
+        [% FOREACH m IN messages %]
+            <tr>
+                <td nowrap>[% m.created | html %]</td>
+                <td nowrap><tt>[% m.int_id | html %]</tt></td>
+                <td nowrap>[% (m.flag || '') | html %]</td>
+                <td><pre>[% m.str | html %]</pre></td>
+                <td nowrap>[% (m.status || '') | html %]</td>
+            </tr>
+        [% END %]
+    </table>
+    [% ELSE %]
+        <p>No message found.</p>
+    [% END %]
+[% END %]
